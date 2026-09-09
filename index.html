@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AboutRynru</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="mouse-glow"></div>
+
+    <h1>Rynru</h1>
+    <img src="hq720.jpg" alt="" width="800px">
+    <p>Hello! I am Rynru.</p>
+    <script>
+        document.onmousemove = function(e) {
+            let glow = document.querySelector(".mouse-glow");
+
+            glow.style.left = e.clientX - 75 + "px";
+            glow.style.top = e.clientY - 75 + "px";
+        }
+    </script>
+<h2>Find me online</h2>
+<p>
+    
+</p>
+</body>
+</html>

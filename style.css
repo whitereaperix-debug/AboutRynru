@@ -1,0 +1,42 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #9297c7, #555d8a);
+    color: #525568;
+    margin: 40px;
+    min-height: 100vh;
+}
+h1{
+   color: #323a4b;
+   text-align: center;
+}
+p{
+    line-height: 1.6;
+    text-align: justify;
+}
+img{
+    width: 200px;
+    height: auto;
+    border-radius: 25%;
+    object-fit: cover;
+    display: block;
+    border: #323a4b;
+}
+ul {
+    width: 20%;
+    background-color: rgb(116, 121, 168);
+    border-radius: 8px;
+    padding: 20px;
+}
+.mouse-glow {
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    filter: blur(50px);
+    position: fixed;
+    pointer-events: none;
+}
+body {
+    transition: filter 0.2s ease;
+}
+
