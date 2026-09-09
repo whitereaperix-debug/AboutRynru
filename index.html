@@ -15,26 +15,24 @@
     <!-- Підсвітка за мишкою -->
     <div class="mouse-glow"></div>
 
-    <!-- Контент сайту -->
-    <div class="content">
+    <!-- Текст зверху посередині -->
+    <div class="hero-container" id="heroText">
+        <div class="text-glow-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Hi, I'm Rynru</h1>
+            <p class="hero-bio">About me:</p>
+        </div>
     </div>
 
-    <script>
-        // Рух підсвітки та паралакс фону
-        document.onmousemove = function(e) {
-            let glow = document.querySelector(".mouse-glow");
-            let bg = document.getElementById("bg");
+    <!-- Зона лівого нижнього кутка зі стильними кнопками -->
+    <div class="corner-zone" id="cornerZone">
+        <div class="corner-content">
+            <a href="https://t.me/Rynru" target="_blank" class="social-btn">Telegram</a>
+            <a href="https://github.com/whitereaperix-debug" target="_blank" class="social-btn">GitHub</a>
+        </div>
+    </div>
 
-            glow.style.left = e.clientX - 100 + "px";
-            glow.style.top = e.clientY - 100 + "px";
-
-            let width = window.innerWidth;
-            let height = window.innerHeight;
-            let xPos = (e.clientX / width - 0.5) * 20;
-            let yPos = (e.clientY / height - 0.5) * 20;
-
-            bg.style.transform = `translate(${-xPos}px, ${-yPos}px)`;
-        }
-    </script>
+    <!-- Підключаємо скрипт -->
+    <script src="script.js"></script>
 </body>
 </html>
