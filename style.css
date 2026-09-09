@@ -1,6 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #1a1a24; /* колір фону навколо картинки (по краях) */
+    background: #1e2636; /* колір фону навколо картинки (по краях) */
     color: #525568;
     margin: 0;
     min-height: 100vh;
@@ -46,7 +46,7 @@ img {
 .mouse-glow {
     width: 200px;
     height: 200px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(146, 151, 199, 0.08);
     border-radius: 50%;
     filter: blur(50px);
     position: fixed;
