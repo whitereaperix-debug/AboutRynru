@@ -1,34 +1,37 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    background: #1a1a24; /* колір фону навколо картинки (по краях) */
     color: #525568;
-    margin: 40px;
+    margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
 }
 
-/* Динамічний фон з відступами по краях */
+/* Динамічний фон у вигляді акуратного блоку з відступами та заокругленнями */
 .dynamic-background {
     position: fixed;
-    top: -30px;
-    left: -30px;
-    right: -30px;
-    bottom: -30px;
+    top: 25px;   /* відступ зверху */
+    left: 25px;  /* відступ зліва */
+    right: 25px; /* відступ справа */
+    bottom: 25px;/* відступ знизу */
     background-image: url('fon1.jpg');
     background-size: cover;
     background-position: center;
-    z-index: -2; /* ховаємо під усе */
+    border-radius: 20px; /* заокруглені краї */
+    z-index: -2;
     transition: transform 0.1s ease-out;
 }
 
 h1 {
-    color: #323a4b;
+    color: #ffffff;
     text-align: center;
 }
 
 p {
     line-height: 1.6;
     text-align: justify;
+    color: #d1d5db;
 }
 
 img {
@@ -40,13 +43,6 @@ img {
     border: 3px solid #323a4b;
 }
 
-ul {
-    width: 20%;
-    background-color: rgb(116, 121, 168);
-    border-radius: 8px;
-    padding: 20px;
-}
-
 .mouse-glow {
     width: 200px;
     height: 200px;
@@ -55,5 +51,5 @@ ul {
     filter: blur(50px);
     position: fixed;
     pointer-events: none;
-    z-index: -1; /* щоб світло було поверх фону, але під текстом */
+    z-index: -1;
 }

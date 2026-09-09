@@ -9,7 +9,7 @@
 
 <body>
 
-    <!-- Динамічний фон -->
+    <!-- Динамічний фон з відступами та заокругленнями -->
     <div class="dynamic-background" id="bg"></div>
 
     <!-- Підсвітка за мишкою -->
@@ -20,9 +20,7 @@
     <p>Hello! I am Rynru.</p>
 
     <h2>Find me online</h2>
-    <p>
-        <!-- сюди можна додати посилання -->
-    </p>
+    <p></p>
 
     <script>
         document.onmousemove = function(e) {
@@ -33,11 +31,11 @@
             glow.style.left = e.clientX - 100 + "px";
             glow.style.top = e.clientY - 100 + "px";
 
-            // Рух фону (паралакс з відступами)
+            // Легкий паралакс для фону
             let width = window.innerWidth;
             let height = window.innerHeight;
-            let xPos = (e.clientX / width - 0.5) * 30;
-            let yPos = (e.clientY / height - 0.5) * 30;
+            let xPos = (e.clientX / width - 0.5) * 20;
+            let yPos = (e.clientY / height - 0.5) * 20;
 
             bg.style.transform = `translate(${-xPos}px, ${-yPos}px)`;
         }
