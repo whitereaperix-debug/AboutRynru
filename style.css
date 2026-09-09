@@ -26,7 +26,8 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 20px;
-    z-index: -2;
+    z-index: 0; /* Змінюємо з -2 на 0 */
+    pointer-events: none; /* Щоб кліки проходили крізь нього наскрізь */
     will-change: transform;
 }
 
