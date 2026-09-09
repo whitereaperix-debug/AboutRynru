@@ -14,7 +14,6 @@ document.addEventListener("mousemove", function(e) {
         let xPos = (e.clientX / width - 0.5) * 16;
         let yPos = (e.clientY / height - 0.5) * 16;
 
-        // Паралакс фону працює і чекає на твої нові елементи
         bg.style.transform = `translate(${-xPos}px, ${-yPos}px)`;
     }
 });
