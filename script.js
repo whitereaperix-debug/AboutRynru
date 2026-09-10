@@ -1,24 +1,53 @@
 window.addEventListener("DOMContentLoaded", () => {
     let bg = document.getElementById("bg");
+    let bgNext = document.getElementById("bgNext");
     let glow = document.getElementById("mouseGlow");
-    bg.style.backgroundImage = "url('fon1.jpg')";
+    bg.style.backgroundImage = "url('fon/fon1.jpg')";
+    bgNext.style.backgroundImage = "url('fon/fon1.jpg')";
     glow.style.background = "rgba(146, 151, 199, 0.1)";
 });
 
 const root = document.documentElement;
 const motionBlurStrength = 1.5;
 let scrollTimer;
+const imageCache = new Map();
 const themes = {
-    mountains: ["fon1.jpg", "20, 24, 36", "rgba(146, 151, 199, 0.1)", "#566A82", "#26384D"],
-    forest: ["fon2.jpg", "25, 35, 28", "rgba(100, 220, 150, 0.08)", "#7E985C", "#34452A"],
-    beach: ["fon3.jpg", "35, 33, 28", "rgba(240, 220, 150, 0.08)", "#DCA373", "#6B4A32"],
-    sakura: ["fon4.jpg", "38, 30, 36", "rgba(255, 180, 210, 0.08)", "#E5C5C8", "#6B5056"]
+    mountains: ["fon/fon1.jpg", "20, 24, 36", "rgba(146, 151, 199, 0.1)", "#566A82", "#26384D"],
+    forest: ["fon/fon2.jpg", "25, 35, 28", "rgba(100, 220, 150, 0.08)", "#7E985C", "#34452A"],
+    beach: ["fon/fon3.jpg", "35, 33, 28", "rgba(240, 220, 150, 0.08)", "#DCA373", "#6B4A32"],
+    sakura: ["fon/fon4.jpg", "38, 30, 36", "rgba(255, 180, 210, 0.08)", "#E5C5C8", "#6B5056"]
 };
+
+function preloadImage(imageName) {
+    if (!imageCache.has(imageName)) {
+        const image = new Image();
+        const loadPromise = new Promise((resolve, reject) => {
+            image.onload = async () => {
+                if (image.decode) {
+                    await image.decode();
+                }
+
+                resolve(image);
+            };
+            image.onerror = reject;
+        });
+        image.src = imageName;
+        imageCache.set(imageName, loadPromise);
+    }
+    return imageCache.get(imageName);
+}
+
+Object.values(themes).forEach(([imageName]) => {
+    preloadImage(imageName).catch(() => {
+        console.error(`Unable to preload theme image: ${imageName}`);
+    });
+});
 
 /* Паралакс рух миші */
 document.addEventListener("mousemove", function(e) {
     let glow = document.getElementById("mouseGlow");
     let bg = document.getElementById("bg");
+    let bgNext = document.getElementById("bgNext");
     let sidebar = document.getElementById("sidebar");
     let mainCard = document.getElementById("mainCard");
     let rightCard = document.getElementById("rightCard");
@@ -37,6 +66,7 @@ document.addEventListener("mousemove", function(e) {
         let yPos = (e.clientY / height - 0.5) * 8;
 
         bg.style.transform = `translate(${-xPos}px, ${-yPos}px)`;
+        bgNext.style.transform = `translate(${-xPos}px, ${-yPos}px)`;
         
         let moveX = xPos * 0.2;
         let moveY = yPos * 0.2;
@@ -111,16 +141,23 @@ document.addEventListener("click", function(event) {
 /* Плавна зміна теми */
 function setTheme(imageName, cubeRgb, glowColor, accentColor, pageBackground) {
     let bg = document.getElementById("bg");
+    let bgNext = document.getElementById("bgNext");
     let glow = document.getElementById("mouseGlow");
 
     root.classList.add("theme-changing");
-    bg.style.opacity = "0";
+    preloadImage(imageName).then(() => {
+        bgNext.style.backgroundImage = `url('${imageName}')`;
+        bgNext.style.opacity = "1";
 
-    setTimeout(() => {
-        bg.style.backgroundImage = `url('${imageName}')`;
-        bg.style.opacity = "1";
+        setTimeout(() => {
+            bg.style.backgroundImage = `url('${imageName}')`;
+            bgNext.style.opacity = "0";
+            root.classList.remove("theme-changing");
+        }, 750);
+    }).catch(() => {
+        console.error(`Unable to load theme image: ${imageName}`);
         root.classList.remove("theme-changing");
-    }, 300);
+    });
 
     document.documentElement.style.setProperty('--cube-rgb', cubeRgb);
     document.documentElement.style.setProperty('--accent-color', accentColor);

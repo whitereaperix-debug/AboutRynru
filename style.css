@@ -37,6 +37,12 @@ html.smooth-scroll {
     opacity: 1;
 }
 
+.dynamic-background-next {
+    opacity: 0;
+    z-index: -2;
+    transition: opacity 0.75s ease-in-out, filter 0.75s ease-in-out;
+}
+
 .theme-changing .dynamic-background {
     filter: blur(4px) brightness(0.72);
 }
