@@ -26,18 +26,66 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 20px;
-    z-index: 0; /* Змінюємо з -2 на 0 */
-    pointer-events: none; /* Щоб кліки проходили крізь нього наскрізь */
+    z-index: -2;
+    pointer-events: none;
     will-change: transform;
 }
 
+/* М'яка підсвітка за мишкою */
 .mouse-glow {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     background: rgba(146, 151, 199, 0.08);
     border-radius: 50%;
-    filter: blur(50px);
+    filter: blur(25px);
     position: fixed;
     pointer-events: none;
     z-index: -1;
+}
+
+/* Загальний стиль для всіх скляних блоків */
+.glass-sidebar, .glass-main-card, .glass-right-card, .glass-input-bar {
+    position: fixed;
+    background: rgba(20, 24, 33, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    z-index: 5;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    will-change: transform;
+}
+
+/* Ліва панель */
+.glass-sidebar {
+    top: 45px;
+    left: 45px;
+    bottom: 45px;
+    width: 320px;
+    padding: 16px;
+}
+
+/* Центральний великий блок (збільшили відступ знизу до 125px, щоб підняти його) */
+.glass-main-card {
+    top: 45px;
+    left: 420px;
+    bottom: 125px; 
+    right: 320px;  
+}
+
+/* Правий вузький блок (теж підняли вище) */
+.glass-right-card {
+    top: 45px;
+    right: 45px;
+    bottom: 125px; 
+    width: 255px;  
+}
+
+/* Нижній блок вводу */
+.glass-input-bar {
+    bottom: 45px;
+    left: 420px;
+    right: 45px;
+    height: 60px;
+    border-radius: 16px;
 }
