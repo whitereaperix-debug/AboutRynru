@@ -5,6 +5,16 @@ window.addEventListener("DOMContentLoaded", () => {
     glow.style.background = "rgba(146, 151, 199, 0.1)";
 });
 
+const root = document.documentElement;
+const motionBlurStrength = 1.5;
+let scrollTimer;
+const themes = {
+    mountains: ["fon1.jpg", "20, 24, 36", "rgba(146, 151, 199, 0.1)", "#566A82", "#26384D"],
+    forest: ["fon2.jpg", "25, 35, 28", "rgba(100, 220, 150, 0.08)", "#7E985C", "#34452A"],
+    beach: ["fon3.jpg", "35, 33, 28", "rgba(240, 220, 150, 0.08)", "#DCA373", "#6B4A32"],
+    sakura: ["fon4.jpg", "38, 30, 36", "rgba(255, 180, 210, 0.08)", "#E5C5C8", "#6B5056"]
+};
+
 /* Паралакс рух миші */
 document.addEventListener("mousemove", function(e) {
     let glow = document.getElementById("mouseGlow");
@@ -60,20 +70,70 @@ document.getElementById("op3").addEventListener("input", function(e) {
 document.getElementById("op4").addEventListener("input", function(e) {
     document.documentElement.style.setProperty('--op-4', e.target.value);
 });
+window.addEventListener("scroll", function() {
+    root.classList.add("scrolling");
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+        root.classList.remove("scrolling");
+    }, 140);
+});
+root.classList.add("smooth-scroll");
+root.style.setProperty('--motion-blur-strength', motionBlurStrength);
+const themeDropdown = document.getElementById("themeDropdown");
+const themeSelect = document.getElementById("themeSelect");
+const themeSelectLabel = document.getElementById("themeSelectLabel");
+
+themeSelect.addEventListener("click", function() {
+    const isOpen = themeDropdown.classList.toggle("open");
+    themeSelect.setAttribute("aria-expanded", isOpen);
+});
+
+document.querySelectorAll("#themeOptions [data-theme]").forEach((option) => {
+    option.addEventListener("click", function() {
+        const themeName = option.dataset.theme;
+        setTheme(...themes[themeName]);
+        themeSelectLabel.textContent = option.textContent;
+        themeDropdown.classList.remove("open");
+        themeSelect.setAttribute("aria-expanded", "false");
+        document.querySelectorAll("#themeOptions [data-theme]").forEach((item) => {
+            item.setAttribute("aria-selected", item === option);
+        });
+    });
+});
+
+document.addEventListener("click", function(event) {
+    if (!themeDropdown.contains(event.target)) {
+        themeDropdown.classList.remove("open");
+        themeSelect.setAttribute("aria-expanded", "false");
+    }
+});
 
 /* Плавна зміна теми */
-function setTheme(imageName, cubeRgb, glowColor, accentColor) {
+function setTheme(imageName, cubeRgb, glowColor, accentColor, pageBackground) {
     let bg = document.getElementById("bg");
     let glow = document.getElementById("mouseGlow");
 
+    root.classList.add("theme-changing");
     bg.style.opacity = "0";
 
     setTimeout(() => {
         bg.style.backgroundImage = `url('${imageName}')`;
         bg.style.opacity = "1";
+        root.classList.remove("theme-changing");
     }, 300);
 
     document.documentElement.style.setProperty('--cube-rgb', cubeRgb);
     document.documentElement.style.setProperty('--accent-color', accentColor);
+    document.documentElement.style.setProperty('--page-background', pageBackground);
     glow.style.background = glowColor;
+    const selectedTheme = Object.entries(themes).find(([, values]) => values[0] === imageName);
+    if (selectedTheme) {
+        const selectedOption = document.querySelector(`#themeOptions [data-theme="${selectedTheme[0]}"]`);
+        if (selectedOption) {
+            themeSelectLabel.textContent = selectedOption.textContent;
+            document.querySelectorAll("#themeOptions [data-theme]").forEach((item) => {
+                item.setAttribute("aria-selected", item === selectedOption);
+            });
+        }
+    }
 }

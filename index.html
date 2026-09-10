@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,64 +9,57 @@
 
 <body>
 
-    <!-- Динамічний фон із плавним переходом -->
     <div class="dynamic-background" id="bg"></div>
 
-    <!-- Підсвітка за мишкою -->
     <div class="mouse-glow" id="mouseGlow"></div>
 
-    <!-- Ліва панель -->
     <div class="glass-sidebar" id="sidebar">
-        <!-- Звичайний контент лівого блока -->
         <div class="sidebar-view active" id="normalView"></div>
 
-        <!-- Контент налаштувань -->
         <div class="sidebar-view" id="settingsView">
-            <h3>Настройки интерфейса</h3>
+            <h3>Interface Settings</h3>
             
             <div class="setting-group">
-                <label>Прозрачность 1-го куба</label>
+                <label for="op1">Cube 1 Opacity</label>
                 <input type="range" id="op1" min="0.1" max="0.9" step="0.01" value="0.25">
             </div>
 
             <div class="setting-group">
-                <label>Прозрачность 2-го куба</label>
+                <label for="op2">Cube 2 Opacity</label>
                 <input type="range" id="op2" min="0.1" max="0.9" step="0.01" value="0.25">
             </div>
 
             <div class="setting-group">
-                <label>Прозрачность 3-го куба</label>
+                <label for="op3">Cube 3 Opacity</label>
                 <input type="range" id="op3" min="0.1" max="0.9" step="0.01" value="0.25">
             </div>
 
             <div class="setting-group">
-                <label>Прозрачность 4-го куба</label>
+                <label for="op4">Cube 4 Opacity</label>
                 <input type="range" id="op4" min="0.1" max="0.9" step="0.01" value="0.25">
             </div>
 
-            <label class="section-title">Темы оформления</label>
-            <div class="theme-buttons">
-                <button onclick="setTheme('fon1.jpg', '20, 24, 36', 'rgba(146, 151, 199, 0.1)', '#fbbf24')">Синие горы</button>
-                <button onclick="setTheme('fon2.jpg', '25, 35, 28', 'rgba(100, 220, 150, 0.08)', '#34d399')">Лес</button>
-                <button onclick="setTheme('fon3.jpg', '35, 33, 28', 'rgba(240, 220, 150, 0.08)', '#fde047')">Пляж</button>
-                <button onclick="setTheme('fon4.jpg', '38, 30, 36', 'rgba(255, 180, 210, 0.08)', '#f472b6')">Сакура</button>
+            <label class="section-title" for="themeSelect">Theme</label>
+            <div class="theme-dropdown" id="themeDropdown">
+                <button class="theme-select" id="themeSelect" type="button" aria-haspopup="listbox" aria-expanded="false">
+                    <span id="themeSelectLabel">Blue Mountains</span>
+                    <span class="theme-select-arrow">⌄</span>
+                </button>
+                <div class="theme-options" id="themeOptions" role="listbox">
+                    <button type="button" role="option" data-theme="mountains" aria-selected="true">Blue Mountains</button>
+                    <button type="button" role="option" data-theme="forest" aria-selected="false">Forest</button>
+                    <button type="button" role="option" data-theme="beach" aria-selected="false">Beach</button>
+                    <button type="button" role="option" data-theme="sakura" aria-selected="false">Sakura</button>
+                </div>
             </div>
         </div>
 
-        <!-- М'яка крапка всередині куба -->
-        <div class="settings-dot" id="settingsDot" title="Настройки"></div>
+        <button class="settings-dot" id="settingsDot" type="button" aria-label="Open settings" title="Settings"></button>
     </div>
 
-    <!-- Центральний великий блок -->
     <div class="glass-main-card" id="mainCard"></div>
-
-    <!-- Правий вузький блок -->
     <div class="glass-right-card" id="rightCard"></div>
-
-    <!-- Нижній блок вводу -->
     <div class="glass-input-bar" id="inputBar"></div>
-
-    <!-- Підключаємо скрипт -->
     <script src="script.js"></script>
 </body>
 </html>
