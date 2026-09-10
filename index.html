@@ -9,14 +9,53 @@
 
 <body>
 
-    <!-- Динамічний фон -->
+    <!-- Динамічний фон із плавним переходом -->
     <div class="dynamic-background" id="bg"></div>
 
     <!-- Підсвітка за мишкою -->
-    <div class="mouse-glow"></div>
+    <div class="mouse-glow" id="mouseGlow"></div>
 
     <!-- Ліва панель -->
-    <div class="glass-sidebar" id="sidebar"></div>
+    <div class="glass-sidebar" id="sidebar">
+        <!-- Звичайний контент лівого блока -->
+        <div class="sidebar-view active" id="normalView"></div>
+
+        <!-- Контент налаштувань -->
+        <div class="sidebar-view" id="settingsView">
+            <h3>Настройки интерфейса</h3>
+            
+            <div class="setting-group">
+                <label>Прозрачность 1-го куба</label>
+                <input type="range" id="op1" min="0.1" max="0.9" step="0.01" value="0.25">
+            </div>
+
+            <div class="setting-group">
+                <label>Прозрачность 2-го куба</label>
+                <input type="range" id="op2" min="0.1" max="0.9" step="0.01" value="0.25">
+            </div>
+
+            <div class="setting-group">
+                <label>Прозрачность 3-го куба</label>
+                <input type="range" id="op3" min="0.1" max="0.9" step="0.01" value="0.25">
+            </div>
+
+            <div class="setting-group">
+                <label>Прозрачность 4-го куба</label>
+                <input type="range" id="op4" min="0.1" max="0.9" step="0.01" value="0.25">
+            </div>
+
+            <label class="section-title">Темы оформления</label>
+            <div class="theme-buttons">
+                <button onclick="setTheme('fon1.jpg', '20, 24, 36', 'rgba(146, 151, 199, 0.1)', '#fbbf24')">Синие горы</button>
+                <button onclick="setTheme('fon2.jpg', '25, 35, 28', 'rgba(100, 220, 150, 0.08)', '#34d399')">Лес</button>
+                <button onclick="setTheme('fon3.jpg', '35, 33, 28', 'rgba(240, 220, 150, 0.08)', '#fde047')">Пляж</button>
+                <button onclick="setTheme('fon4.jpg', '38, 30, 36', 'rgba(255, 180, 210, 0.08)', '#f472b6')">Сакура</button>
+            </div>
+        </div>
+
+        <!-- М'яка крапка всередині куба -->
+        <div class="settings-dot" id="settingsDot" title="Настройки"></div>
+    </div>
 
     <!-- Центральний великий блок -->
     <div class="glass-main-card" id="mainCard"></div>

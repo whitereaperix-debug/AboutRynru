@@ -13,40 +13,64 @@ body {
     min-height: 100vh;
     overflow: hidden;
     position: relative;
+    transition: background 0.8s ease;
 }
 
-/* Динамічний фон */
+/* Динамічний фон із плавним розчиненням */
 .dynamic-background {
     position: fixed;
     top: 25px;
     left: 25px;
     right: 25px;
     bottom: 25px;
-    background-image: url('fon1.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 20px;
-    z-index: -2;
+    z-index: -3;
     pointer-events: none;
-    will-change: transform;
+    will-change: transform, opacity;
+    transition: opacity 0.6s ease-in-out;
+    opacity: 1;
 }
 
 /* М'яка підсвітка за мишкою */
 .mouse-glow {
-    width: 100px;
-    height: 100px;
-    background: rgba(146, 151, 199, 0.08);
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    filter: blur(25px);
+    filter: blur(35px);
     position: fixed;
     pointer-events: none;
     z-index: -1;
+    transition: background 0.6s ease-in-out;
 }
 
-/* Загальний стиль для всіх скляних блоків */
+/* CSS-змінні з плавними переходами прозорості самих кубів */
+:root {
+    --cube-rgb: 20, 24, 36;
+    --op-1: 0.25;
+    --op-2: 0.25;
+    --op-3: 0.25;
+    --op-4: 0.25;
+    --accent-color: #fbbf24;
+}
+
+.glass-sidebar {
+    background: rgba(var(--cube-rgb), var(--op-1)) !important;
+}
+.glass-main-card {
+    background: rgba(var(--cube-rgb), var(--op-2)) !important;
+}
+.glass-right-card {
+    background: rgba(var(--cube-rgb), var(--op-3)) !important;
+}
+.glass-input-bar {
+    background: rgba(var(--cube-rgb), var(--op-4)) !important;
+}
+
+/* Загальний стиль скляних блоків (додано плавний транзишн для прозорості) */
 .glass-sidebar, .glass-main-card, .glass-right-card, .glass-input-bar {
     position: fixed;
-    background: rgba(20, 24, 33, 0.25);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -54,6 +78,7 @@ body {
     z-index: 5;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     will-change: transform;
+    transition: background 0.15s ease-out; /* Робіть рух прозорості надзвичайно плавним */
 }
 
 /* Ліва панель */
@@ -62,10 +87,144 @@ body {
     left: 45px;
     bottom: 45px;
     width: 320px;
-    padding: 16px;
+    padding: 24px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Центральний великий блок (збільшили відступ знизу до 125px, щоб підняти його) */
+/* М'яка акуратна крапка */
+.settings-dot {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    z-index: 10;
+}
+
+.settings-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.25);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Анімація перемикання станів лівого блоку */
+.sidebar-view {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    right: 24px;
+    bottom: 60px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(10px);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-view.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Меню налаштувань */
+#settingsView h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #f1f5f9;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #cbd5e1;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.setting-group {
+    margin-bottom: 8px;
+}
+
+#settingsView label {
+    font-size: 11px;
+    margin-bottom: 3px;
+    display: block;
+    color: #94a3b8;
+}
+
+/* Ідеально плавні кастомні повзунки */
+#settingsView input[type="range"] {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+    appearance: none;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+    transition: accent-color 0.6s ease;
+}
+
+#settingsView input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s ease;
+}
+
+#settingsView input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.35);
+}
+
+/* Кнопки тем */
+.theme-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.theme-buttons button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.theme-buttons button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.theme-buttons button:active {
+    transform: scale(0.97);
+}
+
+/* Центральний великий блок */
 .glass-main-card {
     top: 45px;
     left: 420px;
@@ -73,7 +232,7 @@ body {
     right: 320px;  
 }
 
-/* Правий вузький блок (теж підняли вище) */
+/* Правий вузький блок */
 .glass-right-card {
     top: 45px;
     right: 45px;
