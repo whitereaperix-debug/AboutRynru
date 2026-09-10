@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AboutRynru</title>
+    <title>Messenger</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="is-loading" aria-busy="true">
+
+    <div class="app-loader" id="appLoader" role="status" aria-live="polite">
+        <div class="app-loader-status" id="appLoaderStatus"></div>
+        <div class="app-loader-bar" aria-hidden="true"><span></span></div>
+    </div>
 
     <div class="dynamic-background" id="bg"></div>
     <div class="dynamic-background dynamic-background-next" id="bgNext"></div>

@@ -43,6 +43,81 @@ Object.values(themes).forEach(([imageName]) => {
     });
 });
 
+let loadingTextTimer;
+
+function startLoadingText() {
+    const status = document.getElementById("appLoaderStatus");
+    if (!status) {
+        return;
+    }
+
+    const text = "Loading";
+    let index = 0;
+    let deleting = false;
+    status.textContent = "";
+
+    loadingTextTimer = window.setInterval(() => {
+        if (!deleting) {
+            index += 1;
+            status.textContent = text.slice(0, index);
+            if (index === text.length) {
+                deleting = true;
+            }
+        } else {
+            index -= 1;
+            status.textContent = text.slice(0, index);
+            if (index === 0) {
+                deleting = false;
+            }
+        }
+    }, 130);
+}
+
+function waitForWindowLoad() {
+    if (document.readyState === "complete") {
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+        window.addEventListener("load", resolve, { once: true });
+    });
+}
+
+function finishAppLoading() {
+    const loader = document.getElementById("appLoader");
+    window.clearInterval(loadingTextTimer);
+    document.documentElement.style.setProperty("--loader-progress", "1");
+    document.body.classList.remove("is-loading");
+    document.body.setAttribute("aria-busy", "false");
+
+    if (!loader) {
+        return;
+    }
+
+    loader.classList.add("is-hidden");
+    window.setTimeout(() => loader.remove(), 700);
+}
+
+startLoadingText();
+
+const themeImages = Object.values(themes).map(([imageName]) => imageName);
+const assetPromises = themeImages.map((imageName, index) => preloadImage(imageName).finally(() => {
+    document.documentElement.style.setProperty(
+        "--loader-progress",
+        String(0.1 + ((index + 1) / themeImages.length) * 0.75)
+    );
+}));
+
+Promise.all([
+    Promise.allSettled(assetPromises),
+    document.fonts ? document.fonts.ready : Promise.resolve(),
+    waitForWindowLoad(),
+    new Promise((resolve) => window.setTimeout(resolve, 450))
+]).then(() => {
+    document.documentElement.style.setProperty("--loader-progress", "0.94");
+    window.setTimeout(finishAppLoading, 180);
+});
+
 /* Паралакс рух миші */
 document.addEventListener("mousemove", function(e) {
     let glow = document.getElementById("mouseGlow");
@@ -86,7 +161,6 @@ document.getElementById("settingsDot").addEventListener("click", function() {
     normalView.classList.toggle("active");
     settingsView.classList.toggle("active");
 });
-
 /* Плавна зміна прозорості кубів при пересуванні повзунків */
 document.getElementById("op1").addEventListener("input", function(e) {
     document.documentElement.style.setProperty('--op-1', e.target.value);
