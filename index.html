@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messenger</title>
+    <title>NatureMessenger</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="is-loading" aria-busy="true">
 
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
-        <div class="app-loader-status" id="appLoaderStatus"></div>
-        <div class="app-loader-bar" aria-hidden="true"><span></span></div>
+        <div class="app-loader-title">NatureMessenger</div>
+        <div class="app-loader-center">
+            <div class="app-loader-status" id="appLoaderStatus"></div>
+            <div class="app-loader-bar" aria-hidden="true"><span></span></div>
+        </div>
     </div>
 
     <div class="dynamic-background" id="bg"></div>
@@ -20,44 +23,70 @@
     <div class="mouse-glow" id="mouseGlow"></div>
 
     <div class="glass-sidebar" id="sidebar">
-        <div class="sidebar-view active" id="normalView"></div>
+        <div class="sidebar-view active" id="normalView">
+            <div class="brand-lockup">
+                <span class="brand-name">NatureMessenger</span>
+            </div>
+        </div>
 
         <div class="sidebar-view" id="settingsView">
+            <div class="brand-lockup brand-lockup-settings">
+                <span class="brand-name">NatureMessenger</span>
+            </div>
             <h3>Interface Settings</h3>
-            
-            <div class="setting-group">
-                <label for="op1">Cube 1 Opacity</label>
-                <input type="range" id="op1" min="0.1" max="0.9" step="0.01" value="0.25">
-            </div>
-
-            <div class="setting-group">
-                <label for="op2">Cube 2 Opacity</label>
-                <input type="range" id="op2" min="0.1" max="0.9" step="0.01" value="0.25">
-            </div>
-
-            <div class="setting-group">
-                <label for="op3">Cube 3 Opacity</label>
-                <input type="range" id="op3" min="0.1" max="0.9" step="0.01" value="0.25">
-            </div>
-
-            <div class="setting-group">
-                <label for="op4">Cube 4 Opacity</label>
-                <input type="range" id="op4" min="0.1" max="0.9" step="0.01" value="0.25">
-            </div>
-
-            <label class="section-title" for="themeSelect">Theme</label>
-            <div class="theme-dropdown" id="themeDropdown">
-                <button class="theme-select" id="themeSelect" type="button" aria-haspopup="listbox" aria-expanded="false">
-                    <span id="themeSelectLabel">Blue Mountains</span>
-                    <span class="theme-select-arrow">⌄</span>
-                </button>
-                <div class="theme-options" id="themeOptions" role="listbox">
-                    <button type="button" role="option" data-theme="mountains" aria-selected="true">Blue Mountains</button>
-                    <button type="button" role="option" data-theme="forest" aria-selected="false">Forest</button>
-                    <button type="button" role="option" data-theme="beach" aria-selected="false">Beach</button>
-                    <button type="button" role="option" data-theme="sakura" aria-selected="false">Sakura</button>
+            <details class="settings-section" open>
+                <summary>Interface</summary>
+                <div class="settings-section-content">
+                    <div class="setting-group">
+                        <label for="op1">Cube 1 Opacity</label>
+                        <input type="range" id="op1" min="0.1" max="0.9" step="0.01" value="0.25">
+                    </div>
+                    <div class="setting-group">
+                        <label for="op2">Cube 2 Opacity</label>
+                        <input type="range" id="op2" min="0.1" max="0.9" step="0.01" value="0.25">
+                    </div>
+                    <div class="setting-group">
+                        <label for="op3">Cube 3 Opacity</label>
+                        <input type="range" id="op3" min="0.1" max="0.9" step="0.01" value="0.25">
+                    </div>
+                    <div class="setting-group">
+                        <label for="op4">Cube 4 Opacity</label>
+                        <input type="range" id="op4" min="0.1" max="0.9" step="0.01" value="0.25">
+                    </div>
                 </div>
-            </div>
+            </details>
+
+            <details class="settings-section theme-section">
+                <summary>Theme</summary>
+                <div class="settings-section-content">
+                    <div class="theme-dropdown" id="themeDropdown">
+                        <button class="theme-select" id="themeSelect" type="button" aria-haspopup="listbox" aria-expanded="false">
+                            <span id="themeSelectLabel">Blue Mountains</span>
+                            <span class="theme-select-arrow">⌄</span>
+                        </button>
+                        <div class="theme-options" id="themeOptions" role="listbox">
+                            <button type="button" role="option" data-theme="mountains" aria-selected="true">Blue Mountains</button>
+                            <button type="button" role="option" data-theme="forest" aria-selected="false">Forest</button>
+                            <button type="button" role="option" data-theme="beach" aria-selected="false">Beach</button>
+                            <button type="button" role="option" data-theme="sakura" aria-selected="false">Sakura</button>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="settings-section">
+                <summary>Mouse Effects</summary>
+                <div class="settings-section-content">
+                    <div class="setting-group">
+                        <label for="glowOpacity">Mouse Glow</label>
+                        <input type="range" id="glowOpacity" min="0" max="1" step="0.01" value="0.6">
+                    </div>
+                    <div class="setting-group">
+                        <label for="waveStrength">Color Wave Strength</label>
+                        <input type="range" id="waveStrength" min="0.5" max="2.5" step="0.1" value="1">
+                    </div>
+                </div>
+            </details>
         </div>
 
         <button class="settings-dot" id="settingsDot" type="button" aria-label="Open settings" title="Settings"></button>
